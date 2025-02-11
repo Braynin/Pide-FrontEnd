@@ -6,11 +6,9 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
+    screens: {
+      celular: { max: "850px" },
+      escritorio: { min: "850px" },
     },
   },
   plugins: [],
