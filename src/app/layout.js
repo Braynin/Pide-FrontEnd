@@ -1,4 +1,6 @@
 import "../app/ui/styles/globals.css";
+import header from "../app/ui/components/header.js";
+import footer from "../app/ui/components/footer.js";
 
 export const metadata = {
   title: "Pide",
@@ -8,7 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        {header}
+        {children}
+        {footer}
+      </body>
     </html>
   );
 }

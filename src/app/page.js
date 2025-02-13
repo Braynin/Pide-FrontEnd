@@ -1,5 +1,11 @@
-import Image from "next/image";
+import Restaurantes from "./ui/components/restaurantsList.js";
 
 export default function Home() {
-  return <main></main>;
+  return (
+    <main>
+      <div>
+        <Restaurantes />
+      </div>
+    </main>
+  );
 }
