@@ -1,10 +1,12 @@
-import Restaurantes from "./ui/components/restaurantsList.js";
+import MainIndex from "./ui/components/mainIndex.js";
+import { getRestaurants } from "../app/api/restaurants.js";
 
-export default function Home() {
+export default async function Home() {
+  const restaurants = await getRestaurants();
   return (
     <main>
       <div>
-        <Restaurantes />
+        <MainIndex restaurants={restaurants} />
       </div>
     </main>
   );

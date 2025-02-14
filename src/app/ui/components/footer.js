@@ -40,7 +40,11 @@ const footer = (
             © 2025 Pide. Todos los derechos reservados.
           </p>
           <p className="text-center text-white">
-            Desarrollado por <a href="https://owlyx.net/">Owlyx</a>.
+            Desarrollado por{" "}
+            <a href="https://owlyx.net/" target="_blank">
+              Owlyx
+            </a>
+            .
           </p>
         </div>
       </div>
