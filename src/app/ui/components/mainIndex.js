@@ -1,56 +1,53 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getProducts } from "../../api/products.js"; // Ajusta la ruta
+import { getRestaurants } from "../../api/restaurants.js"; // Ajusta la ruta
+import CategoryCarousel from "../components/categoryCarousel.jsx"; // Importa el carrusel
 
-export default function MainIndex({ restaurants }) {
+export default function MainIndex() {
   const [categoria, setCategoria] = useState("");
+  const [products, setProducts] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
-  // Filtrar restaurantes en el frontend
-  const filteredRestaurants = categoria
-    ? restaurants.filter(
-        (r) => r.categoría?.toLowerCase() === categoria?.toLowerCase()
-      )
-    : restaurants;
+  // Cargar productos y restaurantes al montar el componente
+  useEffect(() => {
+    async function fetchData() {
+      const prods = await getProducts();
+      const rests = await getRestaurants();
+      setProducts(prods);
+      setRestaurants(rests);
+    }
+    fetchData();
+  }, []);
 
-  const categorias = [
-    "Makis",
-    "Pizzeria",
-    "Cafeteria",
-    "Criolla",
-    "Chifa",
-    "Polleria",
-    "Hamburgueseria",
-    "Cevicheria",
-    "Broasteria",
-    "Alitas",
-    "Caldos",
-    "Menu",
-    "Anticucheria",
-  ];
+  // Actualizar la lista filtrada cada vez que cambien la categoría o los arrays
+  useEffect(() => {
+    if (!categoria) {
+      setFilteredRestaurants(restaurants);
+      return;
+    }
+
+    const filteredProducts = products.filter(
+      (p) => p.categoria.toLowerCase() === categoria.toLowerCase()
+    );
+
+    const restaurantIdsSet = new Set(
+      filteredProducts.map((p) => p.restaurante)
+    );
+
+    const filtered = restaurants.filter((r) => restaurantIdsSet.has(r._id));
+    setFilteredRestaurants(filtered);
+  }, [categoria, products, restaurants]);
 
   return (
     <div className="p-4">
-      {/* Botones de filtro */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        <button
-          onClick={() => setCategoria("")}
-          className={`px-4 py-2 rounded font-medium ${
-            categoria === "" ? "bg-red-500 text-white" : "bg-gray-200"
-          }`}
-        >
-          Todos
-        </button>
-        {categorias.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setCategoria(cat)}
-            className={`px-4 py-2 rounded font-medium ${
-              categoria === cat ? "bg-red-500 text-white" : "bg-gray-200"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      {/* Carrusel de categorías */}
+      <CategoryCarousel
+        products={products}
+        setCategoria={setCategoria}
+        categoria={categoria}
+      />
 
       {/* Lista de restaurantes con Flexbox */}
       <div className="flex flex-wrap gap-4 justify-center">
