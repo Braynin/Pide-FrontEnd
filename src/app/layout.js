@@ -1,4 +1,4 @@
-import "../app/ui/styles/globals.css";
+import "../app/globals.css";
 import header from "../app/ui/components/header.js";
 import footer from "../app/ui/components/footer.js";
 

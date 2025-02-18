@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { getProducts } from "../../api/products.js"; // Ajusta la ruta
-import { getRestaurants } from "../../api/restaurants.js"; // Ajusta la ruta
+import { fetchData } from "../components/dataProvider.js";
 import CategoryCarousel from "../components/categoryCarousel.jsx"; // Importa el carrusel
 
 export default function MainIndex() {
@@ -12,13 +11,12 @@ export default function MainIndex() {
 
   // Cargar productos y restaurantes al montar el componente
   useEffect(() => {
-    async function fetchData() {
-      const prods = await getProducts();
-      const rests = await getRestaurants();
-      setProducts(prods);
-      setRestaurants(rests);
+    async function loadData() {
+      const { products, restaurants } = await fetchData();
+      setProducts(products);
+      setRestaurants(restaurants);
     }
-    fetchData();
+    loadData();
   }, []);
 
   // Actualizar la lista filtrada cada vez que cambien la categoría o los arrays
