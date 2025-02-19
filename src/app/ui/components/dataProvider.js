@@ -5,6 +5,9 @@ import { getRestaurants } from "../../api/restaurants.js";
 const CACHE_KEY = "apiData";
 const CACHE_EXPIRATION = 1000 * 60 * 5; // 5 minutos
 
+
+
+
 function getCache() {
   const cachedData = localStorage.getItem(CACHE_KEY);
   if (!cachedData) return null;
