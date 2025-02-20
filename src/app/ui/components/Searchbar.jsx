@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { fetchData } from "../components/dataProvider.js";
 import { IconSearch } from "@tabler/icons-react";
 
@@ -9,6 +10,7 @@ export default function SearchBar() {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function loadData() {
@@ -19,7 +21,7 @@ export default function SearchBar() {
     loadData();
   }, []);
 
-  useEffect(() => {
+  const performSearch = () => {
     if (!searchText.trim()) {
       setFilteredResults([]);
       return;
@@ -36,7 +38,21 @@ export default function SearchBar() {
     );
 
     setFilteredResults([...filteredProducts, ...filteredRestaurants]);
+  };
+
+  useEffect(() => {
+    performSearch();
   }, [searchText, products, restaurants]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      router.push(`/search?query=${encodeURIComponent(searchText)}`);
+    }
+  };
+
+  const handleSearchClick = () => {
+    router.push(`/search?query=${encodeURIComponent(searchText)}`);
+  };
 
   const closeSearch = (e) => {
     if (!e.target.closest(".search-container")) {
@@ -72,8 +88,13 @@ export default function SearchBar() {
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             onFocus={() => setIsFocused(true)}
+            onKeyDown={handleKeyDown}
           />
-          <IconSearch stroke={2} className="text-red-600 w-5 h-5" />
+          <IconSearch 
+            stroke={2} 
+            className="text-red-600 w-5 h-5 cursor-pointer" 
+            onClick={handleSearchClick} 
+          />
         </div>
 
         {/* Lista de resultados */}
