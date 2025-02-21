@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { fetchData } from "../components/dataProvider.js";
-import CategoryCarousel from "../components/categoryCarousel.jsx"; // Importa el carrusel
+import { fetchData } from "../data/dataProvider.js";
+import CategoryCarousel from "./categoryCarousel.jsx"; // Importa el carrusel
 
 export default function MainIndex() {
   const [categoria, setCategoria] = useState("");

@@ -1,6 +1,6 @@
 import "../app/globals.css";
-import footer from "../app/ui/components/footer.js";
-import header from "../app/ui/components/header.js";
+import footer from "./components/ui/footer.js";
+import header from "./components/ui/header.js";
 
 export const metadata = {
   title: "Pide",

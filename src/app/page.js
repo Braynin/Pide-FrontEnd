@@ -1,4 +1,4 @@
-import MainIndex from "./ui/components/mainIndex.js";
+import MainIndex from "./components/ui/mainIndex.js";
 
 export default async function Home() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { fetchData } from "../components/dataProvider.js";
+import { fetchData } from "../data/dataProvider.js";
 import { IconSearch } from "@tabler/icons-react";
 
 export default function SearchBar() {
