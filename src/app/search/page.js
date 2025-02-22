@@ -2,6 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import Link from "next/link";
+
 import { fetchData } from "../components/data/dataProvider";
 
 export default function SearchResults() {
@@ -74,7 +76,11 @@ export default function SearchResults() {
           <h3 className="text-lg font-semibold mb-8">Restaurantes</h3>
           <div className="flex flex-wrap gap-4 justify-items-start">
             {filteredRestaurants.map((restaurant) => (
-              <div key={restaurant._id} className="text-center">
+              <Link
+                href={`/restaurantes/${restaurant._id}`}
+                key={restaurant._id}
+                className="text-center"
+              >
                 <img
                   src={restaurant?.imagenPrincipal || "/placeholder.jpg"}
                   alt={restaurant?.nombre || "Sin nombre"}
@@ -83,7 +89,7 @@ export default function SearchResults() {
                 <h3 className="text-lg font-semibold mt-2">
                   {restaurant?.nombre || "Nombre no disponible"}
                 </h3>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -100,7 +106,7 @@ export default function SearchResults() {
               <div key={restaurante._id} className="mb-10">
                 <div className="flex items-center gap-4 mb-4">
                   <img
-                    src={restaurante?.imagenPrincipal || "/placeholder.jpg"}
+                    src={restaurante?.imagenLogo || "/placeholder.jpg"}
                     alt={restaurante?.nombre || "Sin nombre"}
                     className="w-12 h-12 object-cover rounded-full"
                   />
